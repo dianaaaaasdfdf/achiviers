@@ -31,7 +31,7 @@ npm run dev
 | Path | What it is |
 |---|---|
 | `data/taxonomy.json` | Skill tree: category → sub-category → skill |
-| `data/aliases.json` | Phrases that count as evidence for each skill (edit to improve matching) |
+| `data/aliases.json` | Phrases that count as evidence for each OaSIS descriptor (edit to improve matching) |
 | `data/roles.json` | Target roles and the level (1–5) each needs per skill |
 | `src/match.js` | Matching rules and evidence levels |
 | `src/store.js` | Database access (Supabase or guest/localStorage) |
@@ -45,4 +45,7 @@ npm run dev
 
 ## Data sources
 
-The taxonomy follows the structure of Canada's **Skills and Competencies Taxonomy** (ESDC) and role levels will come from **OaSIS 2025** ratings (Open Government Licence – Canada). Until the official CSVs are imported, `taxonomy.json` and `roles.json` are marked `"source": "seed"` and the app says so on the role card.
+- **Taxonomy:** OaSIS 2025 guide (ESDC) — Skills, Cognitive abilities, Personal attributes and Knowledge (120 descriptors). Physical and sensory abilities, work context and interests are left out. Tools (Excel, SQL…) are our own category because OaSIS does not list them.
+- **Role requirements:** OaSIS 2025 skill and ability ratings (0–5) for 9 NOC occupations (see `scripts/build-taxonomy.mjs`). Only descriptors rated 3+ are kept, and the entry-level target is the rating minus 1.
+- Raw files are in `data/raw/`. To change roles, edit the `ROLES` list in the script and run `npm run import-taxonomy`.
+- Licence: Open Government Licence – Canada. Contains information licensed under the Open Government Licence – Canada.
